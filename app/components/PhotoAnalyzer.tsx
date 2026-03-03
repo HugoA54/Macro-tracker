@@ -34,6 +34,7 @@ export const PhotoAnalyzer: React.FC<PhotoAnalyzerProps> = ({ onConfirm }) => {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+  const cameraRef = useRef<HTMLInputElement>(null);
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -124,27 +125,54 @@ export const PhotoAnalyzer: React.FC<PhotoAnalyzerProps> = ({ onConfirm }) => {
           ref={fileRef}
           style={{ display: "none" }}
           accept="image/*"
+          onChange={handleFile}
+        />
+        <input
+          type="file"
+          ref={cameraRef}
+          style={{ display: "none" }}
+          accept="image/*"
           capture="environment"
           onChange={handleFile}
         />
-        <button
-          onClick={() => fileRef.current?.click()}
-          style={{
-            width: "100%",
-            padding: 20,
-            borderRadius: 12,
-            border: `1.5px dashed ${P.accent}`,
-            background: `${P.accent}0d`,
-            color: P.accent,
-            fontWeight: "bold",
-            cursor: "pointer",
-            fontSize: 15,
-            fontFamily: "inherit",
-            transition: "background 0.2s",
-          }}
-        >
-          📸 Analyser un repas
-        </button>
+        <div style={{ display: "flex", gap: 10 }}>
+          <button
+            onClick={() => cameraRef.current?.click()}
+            style={{
+              flex: 1,
+              padding: 18,
+              borderRadius: 12,
+              border: `1.5px dashed ${P.accent}`,
+              background: `${P.accent}0d`,
+              color: P.accent,
+              fontWeight: "bold",
+              cursor: "pointer",
+              fontSize: 14,
+              fontFamily: "inherit",
+              transition: "background 0.2s",
+            }}
+          >
+            📸 Appareil photo
+          </button>
+          <button
+            onClick={() => fileRef.current?.click()}
+            style={{
+              flex: 1,
+              padding: 18,
+              borderRadius: 12,
+              border: `1.5px dashed ${P.border}`,
+              background: "transparent",
+              color: P.muted,
+              fontWeight: "bold",
+              cursor: "pointer",
+              fontSize: 14,
+              fontFamily: "inherit",
+              transition: "background 0.2s",
+            }}
+          >
+            🖼️ Galerie
+          </button>
+        </div>
       </div>
     );
   }
